@@ -1,0 +1,14 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { projects } from "../data/projects";
+---
+
+<Layout title="Proyectos — Tu Nombre" description="Proyectos realizados por Tu Nombre.">
+	<h1 class="text-2xl font-bold tracking-tight text-neutral-50">Proyectos</h1>
+	<p class="mt-2 text-neutral-400">Una selección de los proyectos en los que he trabajado.</p>
+
+	<div class="mt-8 grid gap-4 sm:grid-cols-2">
+		{projects.map((project) => <ProjectCard project={project} />)}
+	</div>
+</Layout>

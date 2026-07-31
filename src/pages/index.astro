@@ -1,0 +1,40 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { projects } from "../data/projects";
+
+const featured = projects.filter((p) => p.featured);
+---
+
+<Layout>
+	<section>
+		<h1 class="text-3xl font-bold tracking-tight text-neutral-50 sm:text-4xl">
+			Hola, soy Tu Nombre
+		</h1>
+		<p class="mt-4 max-w-xl text-neutral-400">
+			Soy [tu rol, ej. desarrollador de software] especializado en [tu especialidad].
+			Construyo [tipo de producto/servicio] enfocado en [tu propuesta de valor].
+		</p>
+		<div class="mt-6 flex gap-4">
+			<a
+				href="/proyectos"
+				class="rounded-md bg-neutral-100 px-4 py-2 text-sm font-medium text-neutral-900 transition-colors hover:bg-neutral-300"
+			>
+				Ver proyectos
+			</a>
+			<a
+				href="/contacto"
+				class="rounded-md border border-neutral-800 px-4 py-2 text-sm font-medium text-neutral-100 transition-colors hover:border-neutral-700"
+			>
+				Contactarme
+			</a>
+		</div>
+	</section>
+
+	<section class="mt-16">
+		<h2 class="text-xl font-semibold text-neutral-100">Proyectos destacados</h2>
+		<div class="mt-6 grid gap-4 sm:grid-cols-2">
+			{featured.map((project) => <ProjectCard project={project} />)}
+		</div>
+	</section>
+</Layout>

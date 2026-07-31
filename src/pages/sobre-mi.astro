@@ -1,0 +1,58 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const skills = ["TypeScript", "Astro", "React", "Node.js", "Python", "SQL"];
+
+const experience = [
+	{
+		role: "Puesto actual",
+		company: "Empresa actual",
+		period: "2024 — Presente",
+		description: "Descripción breve de tus responsabilidades y logros principales.",
+	},
+	{
+		role: "Puesto anterior",
+		company: "Empresa anterior",
+		period: "2022 — 2024",
+		description: "Descripción breve de tus responsabilidades y logros principales.",
+	},
+];
+---
+
+<Layout title="Sobre mí — Tu Nombre" description="Trayectoria y habilidades de Tu Nombre.">
+	<h1 class="text-2xl font-bold tracking-tight text-neutral-50">Sobre mí</h1>
+	<p class="mt-4 max-w-2xl text-neutral-400">
+		Cuenta aquí tu historia: cómo empezaste, qué te apasiona de tu trabajo y qué
+		tipo de proyectos te gusta resolver. Dos o tres párrafos suelen ser suficientes.
+	</p>
+
+	<section class="mt-12">
+		<h2 class="text-lg font-semibold text-neutral-100">Habilidades</h2>
+		<ul class="mt-4 flex flex-wrap gap-2">
+			{
+				skills.map((skill) => (
+					<li class="rounded-full border border-neutral-800 px-3 py-1 text-sm text-neutral-300">
+						{skill}
+					</li>
+				))
+			}
+		</ul>
+	</section>
+
+	<section class="mt-12">
+		<h2 class="text-lg font-semibold text-neutral-100">Experiencia</h2>
+		<ol class="mt-4 space-y-6">
+			{
+				experience.map((item) => (
+					<li class="border-l border-neutral-800 pl-4">
+						<p class="text-sm text-neutral-500">{item.period}</p>
+						<h3 class="mt-1 font-medium text-neutral-100">
+							{item.role} · {item.company}
+						</h3>
+						<p class="mt-1 text-sm text-neutral-400">{item.description}</p>
+					</li>
+				))
+			}
+		</ol>
+	</section>
+</Layout>
