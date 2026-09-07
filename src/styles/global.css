@@ -81,7 +81,9 @@ nav a.hv-btn { background: var(--blue); color: var(--navHoverTx); }
 nav a.hv-btn:hover { background: var(--blueH) !important; color: var(--navHoverTx) !important; }
 
 @media (max-width: 1000px) {
-	[data-r="hero"], [data-r="2"], [data-r="sec"], [data-r="3"], [data-r="stats"] {
+	/* [data-r="stats"] queda fuera a propósito: los dos contadores se quedan
+	   uno al lado del otro también en móvil. */
+	[data-r="hero"], [data-r="2"], [data-r="sec"], [data-r="3"] {
 		grid-template-columns: 1fr !important;
 	}
 	[data-span="2"] { grid-column: span 1 !important; }
