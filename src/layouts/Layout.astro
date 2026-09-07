@@ -48,6 +48,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://markohj84.g
 					r.dataset.theme = localStorage.getItem("mh_theme") || "dark";
 					r.dataset.lang = localStorage.getItem("mh_lang") || "es";
 				} catch (e) {}
+				// Sólo se ocultan las secciones si vamos a poder revelarlas.
+				if ("IntersectionObserver" in window) r.classList.add("js-reveal");
 			})();
 		</script>
 	</head>
@@ -128,6 +130,20 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://markohj84.g
 				});
 
 				paint();
+			})();
+
+			// Cada sección aparece al entrar en pantalla.
+			(() => {
+				const objetivos = document.querySelectorAll("[data-reveal]");
+				if (!("IntersectionObserver" in window) || !objetivos.length) return;
+				const io = new IntersectionObserver((entradas) => {
+					entradas.forEach((e) => {
+						if (!e.isIntersecting) return;
+						e.target.classList.add("vista");
+						io.unobserve(e.target);
+					});
+				}, { threshold: 0, rootMargin: "0px 0px -10% 0px" });
+				objetivos.forEach((el) => io.observe(el));
 			})();
 		</script>
 	</body>

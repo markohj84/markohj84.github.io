@@ -66,6 +66,16 @@ scroll horizontal: el nav flotante ya lo provocó una vez en móviles. Un iframe
 ancho a probar y comparar `scrollWidth` con `clientWidth` basta — medir con
 `--window-size` de Chrome headless da falsos positivos.
 
+Dos trampas al verificar con Chrome headless, las dos dan falsos negativos:
+
+- El iframe de prueba debe tener el tamaño de una pantalla real. Si lo haces de
+  6000px de alto, `IntersectionObserver` no considera visible casi nada y parece
+  que las animaciones de aparición no funcionan.
+- `html` lleva `scroll-behavior: smooth`, así que `scrollTo` es animado y bajo
+  `--virtual-time-budget` nunca llega a su destino. Pon
+  `documentElement.style.scrollBehavior = "auto"` antes de hacer scroll por
+  script, o navega directamente a un ancla.
+
 ## Despliegue
 
 Cada push a `main` dispara `.github/workflows/deploy.yml` y publica en
