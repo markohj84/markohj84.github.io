@@ -149,14 +149,27 @@ nav a.hv-btn:hover { background: var(--blueH) !important; color: var(--navHoverT
 
 @media (prefers-reduced-motion: reduce) {
 	html { scroll-behavior: auto; }
-	*, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+	/* También hay que anular el retardo: sin esto, las animaciones escalonadas
+	   (el logo, que entra en tres tiempos) siguen apareciendo por partes. */
+	*, *::before, *::after {
+		animation-duration: .01ms !important;
+		animation-delay: -1ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: .01ms !important;
+		transition-delay: 0s !important;
+	}
 }
 
 /* Pantallas muy estrechas (iPhone SE y similares): el logo más los toggles
    no caben con el padding normal y empujan scroll lateral. */
+/* El logo a 24px no cabe junto a los toggles por debajo de ~440px. */
+@media (max-width: 440px) {
+	[data-logo] { font-size: 18px !important; }
+}
+
 @media (max-width: 380px) {
 	[data-shell] { padding-left: 14px !important; padding-right: 14px !important; }
-	[data-logo] { font-size: 18px !important; }
+	[data-logo] { font-size: 17px !important; }
 	/* las pastillas de idioma llevan estilo inline desde JS, de ahí el !important */
 	#mh-lang span { padding: 7px 9px !important; }
 	#mh-theme { width: 36px !important; height: 36px !important; }
