@@ -92,6 +92,15 @@ nav a.hv-btn:hover { background: var(--blueH) !important; color: var(--navHoverT
 @media (max-width: 640px) {
 	[data-h1] { font-size: 44px !important; }
 	[data-pad] { padding: 24px !important; }
+	/* Las etiquetas de esquina (01 / PERFIL, 04 / CV…) están ancladas a 22px
+	   del borde, pero aquí el padding de la tarjeta baja a 24px y quedaban
+	   encimadas con la primera línea de contenido. En móvil pasan al flujo. */
+	[data-tag] {
+		position: static !important;
+		display: block;
+		text-align: right;
+		margin-bottom: 14px;
+	}
 	/* El nav flotante no cabe entero en un móvil: los tres enlaces largos
 	   pasan a icono. El texto no se borra, se oculta visualmente, para que
 	   siga siendo el nombre accesible del enlace. */
