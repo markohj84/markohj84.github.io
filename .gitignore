@@ -24,3 +24,7 @@ pnpm-debug.log*
 .idea/
 .vercel
 .env*
+.gstack/
+
+# fuente del diseño (Claude Design) — material local, no se publica
+/Diseño de portafolio premium/

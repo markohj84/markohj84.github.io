@@ -1,0 +1,230 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { cases } from "../../data/cases";
+
+export function getStaticPaths() {
+	return cases.map((c, i) => ({
+		params: { slug: c.slug },
+		props: {
+			c,
+			i,
+			prev: cases[(i - 1 + cases.length) % cases.length],
+			next: cases[(i + 1) % cases.length],
+		},
+	}));
+}
+
+const { c, i, prev, next } = Astro.props;
+
+const pad = (n: number) => String(n).padStart(2, "0");
+const strip = (s: string) => s.replace(/^Caso de estudio: |^Case study: /, "");
+const imgs = c.imgs?.length ? c.imgs : c.img ? [c.img] : [];
+const multi = imgs.length > 1;
+
+const btn =
+	"display:inline-flex;align-items:center;gap:9px;background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:13px 18px;color:var(--tx2);font:600 12px/1 'Space Grotesk',sans-serif;letter-spacing:.08em;cursor:pointer";
+const meta = "font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:.2em;color:var(--tx3)";
+const round =
+	"pointer-events:auto;width:46px;height:46px;display:grid;place-items:center;background:var(--navbg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--navline);border-radius:50%;color:var(--navtx);font:600 16px/1 'JetBrains Mono',monospace;cursor:pointer";
+---
+
+<Layout
+	title={`${strip(c.title.es)} — Marco Hernández`}
+	description={c.summary.es}
+	image={imgs[0] ?? "/assets/marco-perfil.jpg"}
+>
+	<div style="animation:mhup .4s ease both">
+		<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:30px">
+			<a href="/#proyectos" class="hv-soft" style={`${btn};padding:13px 20px`}>
+				← <span data-l="es">VOLVER AL PORTAFOLIO</span><span data-l="en">BACK TO PORTFOLIO</span>
+			</a>
+			<div style="display:flex;align-items:center;gap:10px">
+				<span style="font:500 11px/1 'JetBrains Mono',monospace;letter-spacing:.14em;color:var(--tx3)">{pad(i + 1)} / {pad(cases.length)}</span>
+				<div style="display:flex;gap:6px">
+					<a href={`/caso/${prev.slug}`} title={strip(prev.title.es)} class="hv-bb" style={btn}>← <span data-l="es">ANTERIOR</span><span data-l="en">PREV</span></a>
+					<a href={`/caso/${next.slug}`} title={strip(next.title.es)} class="hv-bb" style={btn}><span data-l="es">SIGUIENTE</span><span data-l="en">NEXT</span> →</a>
+				</div>
+			</div>
+		</div>
+
+		<div data-pad style="background:var(--panel);border:1px solid var(--line);border-radius:26px;padding:30px 32px;box-shadow:var(--shadow)">
+			<div style="font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:.22em;color:var(--blue)">{c.kicker}</div>
+			<h1 data-h1 style="font:700 38px/1.06 'Space Grotesk',sans-serif;letter-spacing:-.03em;margin:14px 0 0;max-width:840px">
+				<span data-l="es">{c.title.es}</span><span data-l="en">{c.title.en}</span>
+			</h1>
+			<p style="font:400 16px/1.6 Manrope,sans-serif;color:var(--tx2);margin:12px 0 0;max-width:700px;text-wrap:pretty">
+				<span data-l="es">{c.summary.es}</span><span data-l="en">{c.summary.en}</span>
+			</p>
+			<div data-r="3" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:24px;padding-top:20px;border-top:1px solid var(--line)">
+				<div>
+					<div style={meta}><span data-l="es">CLIENTE</span><span data-l="en">CLIENT</span></div>
+					<div style="font:600 15px/1.3 'Space Grotesk',sans-serif;margin-top:7px">{c.client}</div>
+				</div>
+				<div>
+					<div style={meta}><span data-l="es">MI ROL</span><span data-l="en">MY ROLE</span></div>
+					<div style="font:600 15px/1.3 'Space Grotesk',sans-serif;margin-top:7px"><span data-l="es">{c.role.es}</span><span data-l="en">{c.role.en}</span></div>
+				</div>
+				<div>
+					<div style={meta}><span data-l="es">PERIODO</span><span data-l="en">PERIOD</span></div>
+					<div style="font:600 15px/1.3 'Space Grotesk',sans-serif;margin-top:7px">{c.year}</div>
+				</div>
+			</div>
+		</div>
+
+		{imgs.length > 0 && (
+			<div style="margin-top:20px">
+				<div style="position:relative;border:1px solid var(--line);border-radius:26px;overflow:hidden;background:repeating-linear-gradient(135deg,var(--ph) 0 10px,transparent 10px 20px)">
+					<img id="mh-hero" src={imgs[0]} referrerpolicy="no-referrer" alt="" style="width:100%;display:block" />
+					{multi && (
+						<>
+							<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 16px;pointer-events:none">
+								<button id="mh-prev" aria-label="Anterior" class="hv-fill" style={round}>←</button>
+								<button id="mh-next" aria-label="Siguiente" class="hv-fill" style={round}>→</button>
+							</div>
+							<div id="mh-count" style="position:absolute;bottom:14px;left:50%;transform:translateX(-50%);background:var(--navbg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--navline);border-radius:999px;padding:8px 14px;font:500 10.5px/1 'JetBrains Mono',monospace;letter-spacing:.14em;color:var(--navtx)">
+								{pad(1)} / {pad(imgs.length)}
+							</div>
+						</>
+					)}
+				</div>
+				{multi && (
+					<div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
+						{imgs.map((src, n) => (
+							<button
+								data-thumb={n}
+								aria-label={`Imagen ${n + 1}`}
+								style={`width:100px;height:66px;border-radius:12px;overflow:hidden;cursor:pointer;flex:none;padding:0;background:none;border:2px solid ${n === 0 ? "var(--blue)" : "var(--line)"}`}
+							>
+								<img src={src} referrerpolicy="no-referrer" alt="" loading="lazy" style={`width:100%;height:100%;object-fit:cover;display:block;opacity:${n === 0 ? 1 : 0.55}`} />
+							</button>
+						))}
+					</div>
+				)}
+			</div>
+		)}
+
+		<div data-r="2" style="display:grid;grid-template-columns:1.2fr 1fr;gap:20px;margin-top:20px">
+			<div data-pad style="background:var(--panel);border:1px solid var(--line);border-radius:26px;padding:40px">
+				<div style={meta}>01 / <span data-l="es">CONTEXTO</span><span data-l="en">CONTEXT</span></div>
+				<h2 style="font:700 28px/1.1 'Space Grotesk',sans-serif;letter-spacing:-.025em;margin:18px 0 0"><span data-l="es">El reto.</span><span data-l="en">The challenge.</span></h2>
+				<p style="font:400 16px/1.65 Manrope,sans-serif;color:var(--tx2);margin:16px 0 0;text-wrap:pretty">
+					<span data-l="es">{c.context.es}</span><span data-l="en">{c.context.en}</span>
+				</p>
+				<div style={`${meta};margin-top:40px`}>02 / <span data-l="es">PROCESO</span><span data-l="en">PROCESS</span></div>
+				<div style="display:flex;flex-direction:column;gap:20px;margin-top:20px">
+					<div data-l="es">
+						{c.steps.es.map((s) => (
+							<div style="display:flex;gap:16px;border-left:2px solid var(--blue);padding-left:18px">
+								<div>
+									<div style="font:600 15.5px/1.3 'Space Grotesk',sans-serif">{s.t}</div>
+									<div style="font:400 14.5px/1.6 Manrope,sans-serif;color:var(--tx2);margin-top:6px">{s.d}</div>
+								</div>
+							</div>
+						))}
+					</div>
+					<div data-l="en">
+						{c.steps.en.map((s) => (
+							<div style="display:flex;gap:16px;border-left:2px solid var(--blue);padding-left:18px">
+								<div>
+									<div style="font:600 15.5px/1.3 'Space Grotesk',sans-serif">{s.t}</div>
+									<div style="font:400 14.5px/1.6 Manrope,sans-serif;color:var(--tx2);margin-top:6px">{s.d}</div>
+								</div>
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
+
+			<div style="display:flex;flex-direction:column;gap:20px">
+				<div data-pad style="background:linear-gradient(150deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:26px;padding:36px">
+					<div style={meta}>03 / <span data-l="es">RESULTADO</span><span data-l="en">OUTCOME</span></div>
+					<div style="display:flex;flex-direction:column;gap:22px;margin-top:24px">
+						<div data-l="es">
+							{c.outcomes.es.map((o) => (
+								<div>
+									<div style="font:700 34px/1 'Space Grotesk',sans-serif;color:var(--blue);letter-spacing:-.03em">{o.k}</div>
+									<div style="font:400 14px/1.55 Manrope,sans-serif;color:var(--tx2);margin-top:8px">{o.d}</div>
+								</div>
+							))}
+						</div>
+						<div data-l="en">
+							{c.outcomes.en.map((o) => (
+								<div>
+									<div style="font:700 34px/1 'Space Grotesk',sans-serif;color:var(--blue);letter-spacing:-.03em">{o.k}</div>
+									<div style="font:400 14px/1.55 Manrope,sans-serif;color:var(--tx2);margin-top:8px">{o.d}</div>
+								</div>
+							))}
+						</div>
+					</div>
+				</div>
+				<div style="background:var(--panel);border:1px solid var(--line);border-radius:26px;padding:32px">
+					<div style={meta}>04 / <span data-l="es">HERRAMIENTAS</span><span data-l="en">TOOLS</span></div>
+					<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:18px">
+						{c.tools.map((t) => (
+							<span style="font:500 10.5px/1 'JetBrains Mono',monospace;letter-spacing:.08em;color:var(--tx2);border:1px solid var(--line);border-radius:8px;padding:9px 12px">{t}</span>
+						))}
+					</div>
+					<a href={c.link} target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;margin-top:26px;font:600 12px/1 'Space Grotesk',sans-serif;letter-spacing:.08em;color:var(--blue);border-bottom:1px solid var(--blue);padding-bottom:4px">
+						{c.linkTxt ? (
+							<><span data-l="es">{c.linkTxt.es}</span><span data-l="en">{c.linkTxt.en}</span></>
+						) : (
+							<><span data-l="es">VER CASO EN BEHANCE</span><span data-l="en">SEE CASE ON BEHANCE</span></>
+						)} →
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div data-r="2" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px">
+			<a href={`/caso/${prev.slug}`} data-pad class="hv-b" style="background:var(--panel);border:1px solid var(--line);border-radius:26px;padding:34px;display:block">
+				<div style={meta}>← <span data-l="es">PROYECTO ANTERIOR</span><span data-l="en">PREVIOUS PROJECT</span></div>
+				<div style="font:600 22px/1.2 'Space Grotesk',sans-serif;letter-spacing:-.02em;margin-top:14px"><span data-l="es">{strip(prev.title.es)}</span><span data-l="en">{strip(prev.title.en)}</span></div>
+			</a>
+			<a href={`/caso/${next.slug}`} data-pad class="hv-b" style="background:var(--panel);border:1px solid var(--line);border-radius:26px;padding:34px;text-align:right;display:block">
+				<div style={meta}><span data-l="es">SIGUIENTE PROYECTO</span><span data-l="en">NEXT PROJECT</span> →</div>
+				<div style="font:600 22px/1.2 'Space Grotesk',sans-serif;letter-spacing:-.02em;margin-top:14px"><span data-l="es">{strip(next.title.es)}</span><span data-l="en">{strip(next.title.en)}</span></div>
+			</a>
+		</div>
+
+		<div data-pad style="margin-top:20px;background:var(--panel);border:1px solid var(--line);border-radius:26px;padding:40px;display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between">
+			<div>
+				<div style="font:700 26px/1.15 'Space Grotesk',sans-serif;letter-spacing:-.025em"><span data-l="es">¿Trabajamos juntos?</span><span data-l="en">Shall we work together?</span></div>
+				<div style="font:400 15px/1.6 Manrope,sans-serif;color:var(--tx2);margin-top:8px"><span data-l="es">Cuéntame qué necesitas y te respondo hoy mismo.</span><span data-l="en">Tell me what you need and I'll reply today.</span></div>
+			</div>
+			<div style="display:flex;gap:12px;flex-wrap:wrap">
+				<a class="hv-btn" href="https://wa.me/522223576770" target="_blank" rel="noopener" style="background:var(--blue);color:var(--onacc);border-radius:14px;padding:16px 24px;font:600 13px/1 'Space Grotesk',sans-serif;letter-spacing:.06em">WHATSAPP →</a>
+				<a class="hv-soft" href="/#proyectos" style="background:transparent;border:1px solid var(--line);border-radius:14px;padding:16px 24px;color:var(--tx2);font:600 13px/1 'Space Grotesk',sans-serif;letter-spacing:.06em"><span data-l="es">VER MÁS PROYECTOS</span><span data-l="en">MORE PROJECTS</span></a>
+			</div>
+		</div>
+	</div>
+</Layout>
+
+{multi && (
+	<script is:inline define:vars={{ imgs }}>
+		(() => {
+			const hero = document.getElementById("mh-hero");
+			const count = document.getElementById("mh-count");
+			const thumbs = [...document.querySelectorAll("[data-thumb]")];
+			const pad = (n) => String(n).padStart(2, "0");
+			let idx = 0;
+
+			const show = (n) => {
+				idx = (n + imgs.length) % imgs.length;
+				hero.src = imgs[idx];
+				count.textContent = `${pad(idx + 1)} / ${pad(imgs.length)}`;
+				thumbs.forEach((t, k) => {
+					t.style.borderColor = k === idx ? "var(--blue)" : "var(--line)";
+					t.firstElementChild.style.opacity = k === idx ? 1 : 0.55;
+				});
+			};
+
+			document.getElementById("mh-prev").addEventListener("click", () => show(idx - 1));
+			document.getElementById("mh-next").addEventListener("click", () => show(idx + 1));
+			thumbs.forEach((t, k) => t.addEventListener("click", () => show(k)));
+			document.addEventListener("keydown", (e) => {
+				if (e.key === "ArrowLeft") show(idx - 1);
+				if (e.key === "ArrowRight") show(idx + 1);
+			});
+		})();
+	</script>
+)}

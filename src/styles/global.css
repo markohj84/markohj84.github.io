@@ -1,1 +1,105 @@
-@import "tailwindcss";
+/* Tokens y base del portafolio. Portado del diseño original (Claude Design).
+   El tema se conmuta con html[data-theme] y el idioma con html[data-lang]. */
+
+:root {
+	--bg: #070c22; --panel: #111a3e; --panel2: #18234f; --line: rgba(255,255,255,.10);
+	--tx: #ffffff; --tx2: rgba(255,255,255,.64); --tx3: rgba(255,255,255,.38);
+	--blue: #3df1b6; --blueH: #26d49f; --cyan: #31b1ff; --oxford: #0d1637; --onacc: #062e24;
+	--dot: rgba(255,255,255,.085); --dot2: rgba(61,241,182,.10); --shadow: 0 24px 60px rgba(0,0,0,.4);
+	--ph: rgba(255,255,255,.08);
+	--navbg: rgba(16,24,58,.68); --heroA: #123499; --heroB: #0b1436; --heroLine: rgba(255,255,255,.14);
+	--ctaA: #123499; --ctaB: #0c1a4d; --waBg: #3df1b6; --waBgH: #26d49f; --waTx: #062e24;
+	--navline: rgba(255,255,255,.18); --navtx: rgba(255,255,255,.82);
+}
+
+html[data-theme="light"] {
+	--bg: #f3f5fa; --panel: #ffffff; --panel2: #e9eef9; --line: rgba(4,29,85,.11);
+	--tx: #041d55; --tx2: rgba(4,29,85,.62); --tx3: rgba(4,29,85,.34);
+	--blue: #2468ff; --blueH: #1a55d8; --onacc: #ffffff; --cyan: #0a7f96;
+	--dot: rgba(4,29,85,.09); --dot2: rgba(36,104,255,.08); --shadow: 0 20px 50px rgba(4,29,85,.10);
+	--ph: rgba(4,29,85,.05);
+	--navbg: rgba(255,255,255,.68); --navline: rgba(4,29,85,.16); --navtx: rgba(4,29,85,.78);
+	--heroA: #ffffff; --heroB: #e9eef9; --heroLine: rgba(4,29,85,.11); --ctaA: #2468ff; --ctaB: #123ec4;
+	--waBg: #0b1a4a; --waBgH: #071026; --waTx: #ffffff;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+	margin: 0;
+	background: var(--bg);
+	color: var(--tx);
+	font-family: Manrope, system-ui, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	background-image:
+		radial-gradient(var(--dot) 1.1px, transparent 1.1px),
+		radial-gradient(var(--dot2) 1.1px, transparent 1.1px);
+	background-size: 22px 22px, 22px 22px;
+	background-position: 0 0, 11px 11px;
+	transition: background-color .35s ease, color .35s ease;
+}
+
+a { color: var(--tx); text-decoration: none; }
+a:hover { color: var(--blue); }
+
+/* Idioma: ambos textos viven en el DOM, el CSS muestra uno. */
+[data-l="en"] { display: none; }
+[data-l="es"] { display: contents; }
+html[data-lang="en"] [data-l="en"] { display: contents; }
+html[data-lang="en"] [data-l="es"] { display: none; }
+
+@keyframes mhpulse { 0%,100% { opacity: 1 } 50% { opacity: .35 } }
+@keyframes mhtype { from { clip-path: inset(0 100% 0 0) } to { clip-path: inset(0 0 0 0) } }
+@keyframes mhcaret { 0%,45% { opacity: 1 } 50%,95% { opacity: 0 } 100% { opacity: 1 } }
+@keyframes mhup { from { opacity: 0; transform: translateY(14px) } to { opacity: 1; transform: none } }
+
+/* Hovers. El diseño original los traía como atributos style-hover; aquí son clases. */
+.hv-b:hover { border-color: var(--blue); }
+.hv-c:hover { border-color: var(--cyan); }
+.hv-i:hover { border-color: #5c5cf0; }
+.hv-g:hover { border-color: #00c6a0; }
+.hv-fill:hover { background: var(--blue); color: var(--onacc); border-color: var(--blue); }
+.hv-fill2:hover { background: var(--blue); color: var(--onacc); }
+.hv-btn:hover { background: var(--blueH); color: var(--onacc); }
+.hv-soft:hover { color: var(--tx); border-color: var(--tx3); }
+.hv-bb:hover { color: var(--tx); border-color: var(--blue); }
+.hv-blue:hover { color: var(--blue); border-color: var(--blue); }
+.hv-w:hover { color: #fff; }
+.hv-wbg:hover { color: #fff; background: rgba(255,255,255,.1); }
+.hv-wa:hover { color: var(--waTx); background: var(--waBgH); transform: translateY(-2px); }
+
+@media (max-width: 1000px) {
+	[data-r="hero"], [data-r="2"], [data-r="sec"], [data-r="3"], [data-r="stats"] {
+		grid-template-columns: 1fr !important;
+	}
+	[data-span="2"] { grid-column: span 1 !important; }
+	[data-r="sec"] { gap: 24px !important; }
+	[data-big] { font-size: 64px !important; }
+}
+
+@media (max-width: 640px) {
+	[data-h1] { font-size: 44px !important; }
+	[data-pad] { padding: 24px !important; }
+	/* El nav flotante no cabe entero en un móvil. Se acota al ancho de la
+	   pantalla y desplaza en horizontal por dentro; sin esto sobresale y
+	   arrastra scroll lateral a toda la página. */
+	body > nav { max-width: calc(100vw - 20px); overflow-x: auto; scrollbar-width: none; }
+	body > nav::-webkit-scrollbar { display: none; }
+	body > nav a { padding: 11px 10px; letter-spacing: .04em; white-space: nowrap; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html { scroll-behavior: auto; }
+	*, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+/* Pantallas muy estrechas (iPhone SE y similares): el logo más los toggles
+   no caben con el padding normal y empujan scroll lateral. */
+@media (max-width: 380px) {
+	[data-shell] { padding-left: 14px !important; padding-right: 14px !important; }
+	[data-logo] { font-size: 18px !important; }
+	/* las pastillas de idioma llevan estilo inline desde JS, de ahí el !important */
+	#mh-lang span { padding: 7px 9px !important; }
+	#mh-theme { width: 36px !important; height: 36px !important; }
+}
