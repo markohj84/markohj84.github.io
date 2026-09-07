@@ -119,6 +119,8 @@ nav a.hv-btn:hover { background: var(--blueH) !important; color: var(--navHoverT
 		position: absolute; width: 1px; height: 1px;
 		overflow: hidden; clip-path: inset(50%); white-space: nowrap;
 	}
+	/* los dos botones del hero caben en una línea si se aprieta el relleno */
+	[data-herobtns] > a { padding: 15px 16px !important; }
 	nav [data-txt] {
 		position: absolute; width: 1px; height: 1px;
 		overflow: hidden; clip-path: inset(50%); white-space: nowrap;
