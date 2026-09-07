@@ -10,6 +10,8 @@
 	--navbg: rgba(16,24,58,.68); --heroA: #123499; --heroB: #0b1436; --heroLine: rgba(255,255,255,.14);
 	--ctaA: #123499; --ctaB: #0c1a4d; --waBg: #3df1b6; --waBgH: #26d49f; --waTx: #062e24;
 	--navline: rgba(255,255,255,.18); --navtx: rgba(255,255,255,.82); --navHoverTx: #000000;
+	/* una por cada línea de "Cómo trabajo" */
+	--met1: #3df1b6; --met2: #5c5cf0; --met3: #00c6a0; --met4: #31b1ff;
 }
 
 html[data-theme="light"] {
@@ -21,6 +23,7 @@ html[data-theme="light"] {
 	--navbg: rgba(255,255,255,.68); --navline: rgba(4,29,85,.16); --navtx: rgba(4,29,85,.78); --navHoverTx: #ffffff;
 	--heroA: #ffffff; --heroB: #e9eef9; --heroLine: rgba(4,29,85,.11); --ctaA: #2468ff; --ctaB: #123ec4;
 	--waBg: #0b1a4a; --waBgH: #071026; --waTx: #ffffff;
+	--met1: #2468ff; --met2: #7c3aed; --met3: #059669; --met4: #0891b2;
 }
 
 * { box-sizing: border-box; }

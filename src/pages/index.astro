@@ -125,10 +125,10 @@ const stacks = [
 ];
 
 const method = [
-	{ t: { es: "INVESTIGACIÓN", en: "RESEARCH" }, d: { es: "Design Thinking, entrevistas y pruebas con Maze y Hotjar para decidir con evidencia.", en: "Design Thinking, interviews and testing with Maze and Hotjar to decide with evidence." } },
-	{ t: { es: "SISTEMAS", en: "SYSTEMS" }, d: { es: "Componentes, tokens y patrones documentados que escalan con el producto.", en: "Documented components, tokens and patterns that scale with the product." } },
-	{ t: { es: "IA EN EL PROCESO", en: "AI IN THE PROCESS" }, d: { es: "Prompt Engineering para ideación, UX writing y variantes visuales en horas, no semanas.", en: "Prompt Engineering for ideation, UX writing and visual variants in hours, not weeks." } },
-	{ t: { es: "HANDOFF", en: "HANDOFF" }, d: { es: "HTML5, CSS3 y JavaScript propios: hablo el idioma del equipo de desarrollo.", en: "I write HTML5, CSS3 and JavaScript: I speak the dev team's language." } },
+	{ c: "var(--met1)", t: { es: "INVESTIGACIÓN", en: "RESEARCH" }, d: { es: "Design Thinking, entrevistas y pruebas con Maze y Hotjar para decidir con evidencia.", en: "Design Thinking, interviews and testing with Maze and Hotjar to decide with evidence." } },
+	{ c: "var(--met2)", t: { es: "SISTEMAS", en: "SYSTEMS" }, d: { es: "Componentes, tokens y patrones documentados que escalan con el producto.", en: "Documented components, tokens and patterns that scale with the product." } },
+	{ c: "var(--met3)", t: { es: "IA EN EL PROCESO", en: "AI IN THE PROCESS" }, d: { es: "Prompt Engineering para ideación, UX writing y variantes visuales en horas, no semanas.", en: "Prompt Engineering for ideation, UX writing and visual variants in hours, not weeks." } },
+	{ c: "var(--met4)", t: { es: "HANDOFF", en: "HANDOFF" }, d: { es: "HTML5, CSS3 y JavaScript propios: hablo el idioma del equipo de desarrollo.", en: "I write HTML5, CSS3 and JavaScript: I speak the dev team's language." } },
 ];
 
 const cardBase = "cursor:pointer;background:var(--panel);border:1px solid var(--line);border-radius:24px;overflow:hidden;display:block;color:inherit";
@@ -203,7 +203,7 @@ const ph = "aspect-ratio:16/10;background:repeating-linear-gradient(135deg,var(-
 				</p>
 				<div data-r="2" style="display:grid;grid-template-columns:1fr 1fr;gap:26px 34px">
 					{method.map((m) => (
-						<div style="border-left:2px solid var(--blue);padding-left:16px">
+						<div style={`border-left:2px solid ${m.c};padding-left:16px`}>
 							<div style="font:600 12px/1 'JetBrains Mono',monospace;letter-spacing:.14em;margin-bottom:9px"><span data-l="es">{m.t.es}</span><span data-l="en">{m.t.en}</span></div>
 							<div style="font:400 14px/1.55 Manrope,sans-serif;color:var(--tx2)"><span data-l="es">{m.d.es}</span><span data-l="en">{m.d.en}</span></div>
 						</div>
