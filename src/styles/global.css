@@ -74,7 +74,8 @@ html[data-lang="en"] [data-l="es"] { display: none; }
 /* Nav flotante. El color va aquí y no en el atributo style de cada enlace,
    porque un estilo inline gana a la regla :hover y dejaba el texto casi
    blanco sobre el fondo de acento. */
-nav a { color: var(--navtx); }
+nav a { color: var(--navtx); display: inline-flex; align-items: center; }
+nav [data-ico] { display: none; }
 nav a.hv-fill2:hover { background: var(--blue) !important; color: var(--navHoverTx) !important; }
 nav a.hv-btn { background: var(--blue); color: var(--navHoverTx); }
 nav a.hv-btn:hover { background: var(--blueH) !important; color: var(--navHoverTx) !important; }
@@ -91,12 +92,17 @@ nav a.hv-btn:hover { background: var(--blueH) !important; color: var(--navHoverT
 @media (max-width: 640px) {
 	[data-h1] { font-size: 44px !important; }
 	[data-pad] { padding: 24px !important; }
-	/* El nav flotante no cabe entero en un móvil. Se acota al ancho de la
-	   pantalla y desplaza en horizontal por dentro; sin esto sobresale y
-	   arrastra scroll lateral a toda la página. */
+	/* El nav flotante no cabe entero en un móvil: los tres enlaces largos
+	   pasan a icono. El texto no se borra, se oculta visualmente, para que
+	   siga siendo el nombre accesible del enlace. */
 	body > nav { max-width: calc(100vw - 20px); overflow-x: auto; scrollbar-width: none; }
 	body > nav::-webkit-scrollbar { display: none; }
-	body > nav a { padding: 11px 10px; letter-spacing: .04em; white-space: nowrap; }
+	body > nav a { padding: 11px 10px !important; letter-spacing: .04em !important; white-space: nowrap; }
+	nav [data-ico] { display: block; }
+	nav [data-txt] {
+		position: absolute; width: 1px; height: 1px;
+		overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -112,4 +118,6 @@ nav a.hv-btn:hover { background: var(--blueH) !important; color: var(--navHoverT
 	/* las pastillas de idioma llevan estilo inline desde JS, de ahí el !important */
 	#mh-lang span { padding: 7px 9px !important; }
 	#mh-theme { width: 36px !important; height: 36px !important; }
+	body > nav { gap: 2px !important; }
+	body > nav a { padding: 11px 7px !important; }
 }
