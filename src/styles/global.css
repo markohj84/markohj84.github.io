@@ -9,7 +9,7 @@
 	--ph: rgba(255,255,255,.08);
 	--navbg: rgba(16,24,58,.68); --heroA: #123499; --heroB: #0b1436; --heroLine: rgba(255,255,255,.14);
 	--ctaA: #123499; --ctaB: #0c1a4d; --waBg: #3df1b6; --waBgH: #26d49f; --waTx: #062e24;
-	--navline: rgba(255,255,255,.18); --navtx: rgba(255,255,255,.82);
+	--navline: rgba(255,255,255,.18); --navtx: rgba(255,255,255,.82); --navHoverTx: #000000;
 }
 
 html[data-theme="light"] {
@@ -18,7 +18,7 @@ html[data-theme="light"] {
 	--blue: #2468ff; --blueH: #1a55d8; --onacc: #ffffff; --cyan: #0a7f96;
 	--dot: rgba(4,29,85,.09); --dot2: rgba(36,104,255,.08); --shadow: 0 20px 50px rgba(4,29,85,.10);
 	--ph: rgba(4,29,85,.05);
-	--navbg: rgba(255,255,255,.68); --navline: rgba(4,29,85,.16); --navtx: rgba(4,29,85,.78);
+	--navbg: rgba(255,255,255,.68); --navline: rgba(4,29,85,.16); --navtx: rgba(4,29,85,.78); --navHoverTx: #ffffff;
 	--heroA: #ffffff; --heroB: #e9eef9; --heroLine: rgba(4,29,85,.11); --ctaA: #2468ff; --ctaB: #123ec4;
 	--waBg: #0b1a4a; --waBgH: #071026; --waTx: #ffffff;
 }
@@ -54,20 +54,30 @@ html[data-lang="en"] [data-l="es"] { display: none; }
 @keyframes mhcaret { 0%,45% { opacity: 1 } 50%,95% { opacity: 0 } 100% { opacity: 1 } }
 @keyframes mhup { from { opacity: 0; transform: translateY(14px) } to { opacity: 1; transform: none } }
 
-/* Hovers. El diseño original los traía como atributos style-hover; aquí son clases. */
-.hv-b:hover { border-color: var(--blue); }
-.hv-c:hover { border-color: var(--cyan); }
-.hv-i:hover { border-color: #5c5cf0; }
-.hv-g:hover { border-color: #00c6a0; }
-.hv-fill:hover { background: var(--blue); color: var(--onacc); border-color: var(--blue); }
-.hv-fill2:hover { background: var(--blue); color: var(--onacc); }
-.hv-btn:hover { background: var(--blueH); color: var(--onacc); }
-.hv-soft:hover { color: var(--tx); border-color: var(--tx3); }
-.hv-bb:hover { color: var(--tx); border-color: var(--blue); }
-.hv-blue:hover { color: var(--blue); border-color: var(--blue); }
-.hv-w:hover { color: #fff; }
-.hv-wbg:hover { color: #fff; background: rgba(255,255,255,.1); }
-.hv-wa:hover { color: var(--waTx); background: var(--waBgH); transform: translateY(-2px); }
+/* Hovers. El diseño original los traía como atributos style-hover que su
+   runtime aplicaba inline; aquí son clases, así que necesitan !important para
+   ganarle al atributo style de cada elemento (si no, el hover no se ve). */
+.hv-b:hover { border-color: var(--blue) !important; }
+.hv-c:hover { border-color: var(--cyan) !important; }
+.hv-i:hover { border-color: #5c5cf0 !important; }
+.hv-g:hover { border-color: #00c6a0 !important; }
+.hv-fill:hover { background: var(--blue) !important; color: var(--onacc) !important; border-color: var(--blue) !important; }
+.hv-fill2:hover { background: var(--blue) !important; color: var(--onacc) !important; }
+.hv-btn:hover { background: var(--blueH) !important; color: var(--onacc) !important; }
+.hv-soft:hover { color: var(--tx) !important; border-color: var(--tx3) !important; }
+.hv-bb:hover { color: var(--tx) !important; border-color: var(--blue) !important; }
+.hv-blue:hover { color: var(--blue) !important; border-color: var(--blue) !important; }
+.hv-w:hover { color: #fff !important; }
+.hv-wbg:hover { color: #fff !important; background: rgba(255,255,255,.1) !important; }
+.hv-wa:hover { color: var(--waTx) !important; background: var(--waBgH) !important; transform: translateY(-2px); }
+
+/* Nav flotante. El color va aquí y no en el atributo style de cada enlace,
+   porque un estilo inline gana a la regla :hover y dejaba el texto casi
+   blanco sobre el fondo de acento. */
+nav a { color: var(--navtx); }
+nav a.hv-fill2:hover { background: var(--blue) !important; color: var(--navHoverTx) !important; }
+nav a.hv-btn { background: var(--blue); color: var(--navHoverTx); }
+nav a.hv-btn:hover { background: var(--blueH) !important; color: var(--navHoverTx) !important; }
 
 @media (max-width: 1000px) {
 	[data-r="hero"], [data-r="2"], [data-r="sec"], [data-r="3"], [data-r="stats"] {
