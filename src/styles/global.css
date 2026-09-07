@@ -87,6 +87,8 @@ nav a.hv-btn:hover { background: var(--blueH) !important; color: var(--navHoverT
 		grid-template-columns: 1fr !important;
 	}
 	[data-span="2"] { grid-column: span 1 !important; }
+	/* al apilarse, las tarjetas anterior/siguiente se alinean igual */
+	[data-nextcard] { text-align: left !important; }
 	[data-r="sec"] { gap: 24px !important; }
 	[data-big] { font-size: 64px !important; }
 }
@@ -110,6 +112,13 @@ nav a.hv-btn:hover { background: var(--blueH) !important; color: var(--navHoverT
 	body > nav::-webkit-scrollbar { display: none; }
 	body > nav a { padding: 11px 10px !important; letter-spacing: .04em !important; white-space: nowrap; }
 	nav [data-ico] { display: block; }
+	/* Navegación de las páginas de caso: en una fila estrecha no cabe el
+	   texto completo, así que se oculta visualmente (sigue siendo el nombre
+	   accesible) y quedan la flecha y "VOLVER". */
+	[data-short] {
+		position: absolute; width: 1px; height: 1px;
+		overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+	}
 	nav [data-txt] {
 		position: absolute; width: 1px; height: 1px;
 		overflow: hidden; clip-path: inset(50%); white-space: nowrap;
@@ -131,4 +140,7 @@ nav a.hv-btn:hover { background: var(--blueH) !important; color: var(--navHoverT
 	#mh-theme { width: 36px !important; height: 36px !important; }
 	body > nav { gap: 2px !important; }
 	body > nav a { padding: 11px 7px !important; }
+	/* la barra de las páginas de caso se pasa por un par de píxeles a 320 */
+	[data-casebar] { gap: 8px !important; }
+	[data-casebar] > a { padding: 13px 13px !important; }
 }

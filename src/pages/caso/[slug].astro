@@ -34,15 +34,15 @@ const round =
 	image={imgs[0] ?? "/assets/marco-perfil.jpg"}
 >
 	<div style="animation:mhup .4s ease both">
-		<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:30px">
+		<div data-casebar style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:30px">
 			<a href="/#proyectos" class="hv-soft" style={`${btn};padding:13px 20px`}>
-				← <span data-l="es">VOLVER AL PORTAFOLIO</span><span data-l="en">BACK TO PORTFOLIO</span>
+				← <span data-l="es">VOLVER<span data-short> AL PORTAFOLIO</span></span><span data-l="en">BACK<span data-short> TO PORTFOLIO</span></span>
 			</a>
 			<div style="display:flex;align-items:center;gap:10px">
 				<span style="font:500 11px/1 'JetBrains Mono',monospace;letter-spacing:.14em;color:var(--tx3)">{pad(i + 1)} / {pad(cases.length)}</span>
 				<div style="display:flex;gap:6px">
-					<a href={`/caso/${prev.slug}`} title={strip(prev.title.es)} class="hv-bb" style={btn}>← <span data-l="es">ANTERIOR</span><span data-l="en">PREV</span></a>
-					<a href={`/caso/${next.slug}`} title={strip(next.title.es)} class="hv-bb" style={btn}><span data-l="es">SIGUIENTE</span><span data-l="en">NEXT</span> →</a>
+					<a href={`/caso/${prev.slug}`} title={strip(prev.title.es)} class="hv-bb" style={btn}>← <span data-short><span data-l="es">ANTERIOR</span><span data-l="en">PREV</span></span></a>
+					<a href={`/caso/${next.slug}`} title={strip(next.title.es)} class="hv-bb" style={btn}><span data-short><span data-l="es">SIGUIENTE</span><span data-l="en">NEXT</span></span> →</a>
 				</div>
 			</div>
 		</div>
@@ -180,7 +180,7 @@ const round =
 				<div style={meta}>← <span data-l="es">PROYECTO ANTERIOR</span><span data-l="en">PREVIOUS PROJECT</span></div>
 				<div style="font:600 22px/1.2 'Space Grotesk',sans-serif;letter-spacing:-.02em;margin-top:14px"><span data-l="es">{strip(prev.title.es)}</span><span data-l="en">{strip(prev.title.en)}</span></div>
 			</a>
-			<a href={`/caso/${next.slug}`} data-pad class="hv-b" style="background:var(--panel);border:1px solid var(--line);border-radius:26px;padding:34px;text-align:right;display:block">
+			<a href={`/caso/${next.slug}`} data-pad class="hv-b" data-nextcard style="background:var(--panel);border:1px solid var(--line);border-radius:26px;padding:34px;text-align:right;display:block">
 				<div style={meta}><span data-l="es">SIGUIENTE PROYECTO</span><span data-l="en">NEXT PROJECT</span> →</div>
 				<div style="font:600 22px/1.2 'Space Grotesk',sans-serif;letter-spacing:-.02em;margin-top:14px"><span data-l="es">{strip(next.title.es)}</span><span data-l="en">{strip(next.title.en)}</span></div>
 			</a>
