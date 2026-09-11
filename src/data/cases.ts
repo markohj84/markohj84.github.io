@@ -60,8 +60,8 @@ export const cases: Case[] = [
       ]
     },
     tools: ["Figma", "Design Thinking", "Maze", "Chatbot", "IA generativa"],
-    img: "/assets/cb/dashboard-w.png",
-    imgs: ["/assets/cb/dashboard-w.png","/assets/cb/login-w.png","/assets/cb/menu-w.png","/assets/cb/bitacora-clusters-w.png","/assets/cb/informe-area-w.png","/assets/cb/dashboard-jornadas-w.png","/assets/cb/monitor-evidencias-w.png","/assets/cb/mesa-ayuda-w.png","/assets/cb/chatbot-w.png"],
+    img: "/assets/cb/dashboard-w.webp",
+    imgs: ["/assets/cb/dashboard-w.webp","/assets/cb/login-w.png","/assets/cb/menu-w.png","/assets/cb/bitacora-clusters-w.png","/assets/cb/informe-area-w.png","/assets/cb/dashboard-jornadas-w.png","/assets/cb/monitor-evidencias-w.png","/assets/cb/mesa-ayuda-w.png","/assets/cb/chatbot-w.png"],
     link: "https://www.behance.net/marcohj"
   },
   {
